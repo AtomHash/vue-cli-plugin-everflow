@@ -1,2 +1,6 @@
 # vue-cli-plugin-everflow
-Console application for VueJS CLI 3. Helps to start an everflow project.
+
+An everflow plugin for the VueJS cli v3 to help setup everflow projects. <a href="https://vuejs.org" target="_blank"><img width="15" src="https://vuejs.org/images/logo.png"></a>.
+
+### Everflow ❤ VueJS
+

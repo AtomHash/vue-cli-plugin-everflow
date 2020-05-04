@@ -1,0 +1,25 @@
+{
+  "name": "vue-cli-plugin-everflow",
+  "version": "0.1.0",
+  "description": "An everflow plugin for the VueJS cli v3 to help setup everflow projects.",
+  "main": "./index.js",
+  "author": "AtomHash",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AtomHash/vue-cli-plugin-everflow.git"
+  },
+  "keywords": [
+    "everflow",
+    "vuejs",
+    "vue",
+    "vue-cli",
+    "plugin",
+    "atomhash",
+    "cli"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "git+https://github.com/AtomHash/vue-cli-plugin-everflow/issues"
+  },
+  "homepage": "git+https://github.com/AtomHash/vue-cli-plugin-everflow#readme"
+}
