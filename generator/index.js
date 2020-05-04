@@ -8,5 +8,6 @@ module.exports = api => {
       "preserve": "node ./node_modules/@everflow-cli/tools/magic-routes.js",
       "prebuild": "node ./node_modules/@everflow-cli/tools/magic-routes.js",
     }
-  })
+  });
+  api.render('./template')
 }
