@@ -2,7 +2,7 @@ module.exports = (api, options) => {
   api.render('./template', { ...options, START_YEAR: new Date().getFullYear(), BASE_URL: 'BASE_URL', htmlWebpackPlugin:'htmlWebpackPlugin.options.title' });
   api.extendPackage({
     dependencies: {
-      'everflow': '^3.0.1',
+      'everflow': '^4.0.0-alpha.2',
       "@everflow-cli/tools": "0.1.1"
     },
     scripts: {
