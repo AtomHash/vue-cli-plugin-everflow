@@ -1,20 +1,19 @@
-﻿let baseURL = "https://api.localhost";
-module.exports = {
+{
     "name": "THR",
     "debug": true,
     "routerMode": "hash",
     "language": "en",
     "mountId": "app",
-    "baseURL": baseURL,
+    "baseURL": "https://api.localhost",
     "prefix": "/v1",
     "general": {
-        startYear: 2019
+        "startYear": 2019
     },
     "storage": {
-        name: "default",
-        driver: ["asyncStorage"],
-        size: 4980736,
-        storeName: "app"
+        "name": "default",
+        "driver": ["asyncStorage"],
+        "size": 4980736,
+        "storeName": "app"
     },
     "datetime": {
         "date": {

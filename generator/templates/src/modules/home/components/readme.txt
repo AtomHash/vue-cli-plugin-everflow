@@ -1,1 +1,0 @@
-Create VueJs components and add them to your views/templates.
