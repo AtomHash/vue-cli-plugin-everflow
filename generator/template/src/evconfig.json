@@ -1,26 +1,24 @@
 {
-    "name": "THR",
-    "debug": true,
-    "routerMode": "hash",
+    "name": "<%= APP_NAME %>",
+    "routerMode": "<%= ROUTING_MODE %>",
     "language": "en",
     "mountId": "app",
-    "baseURL": "https://api.localhost",
-    "prefix": "/v1",
+    "apiURL": "<%= API_URL %>",
     "general": {
-        "startYear": 2019
+        "startYear": "<%= START_YEAR %>"
     },
     "storage": {
-        "name": "default",
+        "name": "everflow",
         "driver": ["asyncStorage"],
         "size": 4980736,
         "storeName": "app"
     },
     "datetime": {
         "date": {
-            "format": "YYYY-MM-DD"
+            "format": "<%= DATE_FORMAT %>"
         },
         "time": {
-            "format": "HH:mm:ss"
+            "format": "<%= TIME_FORMAT %>"
         }
     }
 }

@@ -1,5 +1,5 @@
 module.exports = (api, options) => {
-  api.render('./template', { ...options, BASE_URL: 'BASE_URL', htmlWebpackPlugin:'htmlWebpackPlugin.options.title' });
+  api.render('./template', { ...options, START_YEAR: new Date().getFullYear(), BASE_URL: 'BASE_URL', htmlWebpackPlugin:'htmlWebpackPlugin.options.title' });
   api.extendPackage({
     dependencies: {
       'everflow': '^3.0.1',
