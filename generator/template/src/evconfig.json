@@ -1,11 +1,10 @@
 {
-    "name": "<%= APP_NAME %>",
-    "routerMode": "<%= ROUTING_MODE %>",
+    "routerMode": "hash",
     "language": "en",
     "mountId": "app",
-    "apiURL": "<%= API_URL %>",
+    "apiURL": "https://api.localhost",
     "general": {
-        "startYear": "<%= START_YEAR %>"
+        "startYear": "2020"
     },
     "storage": {
         "name": "everflow",
@@ -15,10 +14,10 @@
     },
     "datetime": {
         "date": {
-            "format": "<%= DATE_FORMAT %>"
+            "format": "YYYY-MM-DD"
         },
         "time": {
-            "format": "<%= TIME_FORMAT %>"
+            "format": "HH:mm:ss"
         }
     }
 }
