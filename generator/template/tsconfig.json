@@ -1,13 +1,13 @@
 {
   "compilerOptions": {
-    "target": "esnext",
+    "target": "es5",
     "module": "esnext",
     "resolveJsonModule": true,
     "strictPropertyInitialization": false,
     "strict": true,
     "jsx": "preserve",
     "importHelpers": true,
-    "removeComments": true,
+    "removeComments": false,
     "preserveConstEnums": true,
     "moduleResolution": "node",
     "experimentalDecorators": true,
@@ -23,12 +23,7 @@
         "src/*"
       ]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
+    "lib": [ "es2015", "dom", "dom.iterable", "es2015.promise", "scripthost"],
   },
   "include": [
     "src/**/*.ts",
