@@ -1,19 +1,25 @@
 import { RouteConfig } from 'vue-router'
 import ConfirmLeaveNavGuard from './nav-guards/confirm-leave.navguard'
 import Home from './pages/home.vue'
-const Login = () => import(/* webpackChunkName: "home-login" */'./pages/login.vue').then(m => m.default) //async example
+import About from './pages/about.vue'
 
 const routes: Array<RouteConfig> = [
     {
         path: '/',
-        name: 'home',
-        component: Home
+        name: 'home-home',
+        component: Home,
+        meta: {
+            title: 'Home'
+        }
     },
     {
-        path: '/login',
-        name: 'loign',
-        component: Login,
-        beforeEnter: ConfirmLeaveNavGuard
+        path: '/about',
+        name: 'home-about',
+        component: About,
+        beforeEnter: ConfirmLeaveNavGuard,
+        meta: {
+            title: 'About'
+        }
     }
 ];
 export default routes;

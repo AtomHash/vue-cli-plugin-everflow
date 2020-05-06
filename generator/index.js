@@ -5,7 +5,7 @@ module.exports = (api, options) => {
       'everflow': '^4.0.0-alpha.3'
     },
     devDependencies: {
-      "@everflow-cli/tools": "^0.1.1",
+      "@everflow-cli/tools": "^0.1.2",
       "terser-webpack-plugin": "^3.0.0"
     },
     scripts: {
