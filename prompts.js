@@ -35,4 +35,10 @@ module.exports = [
   message: 'Time util class serialize format?',
   description: 'This will be added to evconfig.json.',
   default: 'HH:mm:ss',
+},
+{
+    name: 'IS_DESTROYABLE',
+    type: 'confirm',
+    message: 'Delete orphaned files from VueJS example project? (Destructive)',
+    default: false
 }];
