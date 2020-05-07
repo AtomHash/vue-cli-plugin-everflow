@@ -11,8 +11,7 @@ module.exports = (api, options) => {
         config
           .plugin('everflowWebpackPlugin')
               .use(EverflowWebpackPlugin)
+                  // .before('webpack-dev-server') or HotModuleReplacementPlugin  devServer
                   .end();
     });
-    api.configureDevServer((config) => {
-          return function(){ console.log('Everflow Message')} });
 };

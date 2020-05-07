@@ -13,6 +13,7 @@ module.exports = (api, options) => {
             "@types/crypto-js": "^3.1.45"
         }
     });
+    api.extendPackage({ vue: { publicPath: api.makeJSOnlyValue("process.env.NODE_ENV === 'production' ? './' : './'" )} })
 
     api.onCreateComplete(() => {
         const filesToRemove = [
