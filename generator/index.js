@@ -7,7 +7,8 @@ module.exports = (api, options) => {
     devDependencies: {
       "everflow-webpack-plugin": "^0.1.0-alpha.1",
       "@everflow-cli/tools": "^0.1.2",
-      "terser-webpack-plugin": "^3.0.0"
+      "terser-webpack-plugin": "^3.0.0",
+      "@types/crypto-js": "^3.1.45"
     }
   });
   if (api.hasPlugin('pwa'))
