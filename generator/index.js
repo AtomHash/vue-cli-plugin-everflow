@@ -35,6 +35,19 @@ module.exports = (api, options) => {
     // api.afterInvoke(() => {})
     api.onCreateComplete(() => {
 
+        //Edit TSCONFIG - Fix JSON imports
+        let tsConfig = '';
+        let tsConfigPath = api.resolve('./tsconfig.json');
+        if (fs.existsSync(tsConfigPath))
+        {
+            tsConfig = fs.readJsonSync(tsConfigPath, { encoding: 'utf8' });
+            tsConfig.compilerOptions['resolveJsonModule'] = true;
+            fs.writeJsonSync(tsConfigPath, tsConfig, {
+                spaces: 2,
+                encoding: 'utf8'
+            });
+        }
+
         // If PWA plugin is installed, inject service worker to main.ts
         if (api.hasPlugin('pwa'))
         {
