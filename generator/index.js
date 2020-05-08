@@ -2,7 +2,35 @@ const fs = require('fs-extra');
 
 module.exports = (api, options) => {
 
-        // Dynamic Imports
+    // Define package.json dependencies for this version
+    api.extendPackage({
+        dependencies: {
+            'everflow': '^4.0.0-alpha.5'
+        },
+        devDependencies: {
+            "everflow-webpack-plugin": "^0.1.0-alpha.1",
+            "@everflow-cli/tools": "^0.1.2",
+            "terser-webpack-plugin": "^3.0.0",
+            "@types/crypto-js": "^3.1.45"
+        }
+    });
+
+    // Modify options if needed
+    options.API_URL = options.API_URL.replace(/\/$/, '');
+
+    // function to generate a 64bit key for AES256BIT encrypt function
+    const generateAESKey = function()
+    {
+        let hex = '0123456789abcdef';
+        let key = '';
+        for (i = 0; i < 64; i++)
+        {
+            key += hex.charAt(Math.floor(Math.random() * 16));
+        }
+        return key;
+    }
+
+    // Dynamic Imports
     const vueConfigJsPath = api.resolve('./vue.config.js');
     const prepareWebpackPlugins = function(plugins)
     {
@@ -31,51 +59,24 @@ module.exports = (api, options) => {
 
     const finalizeWebpackPlugins = function(plugins)
     {
-        // if (fs.existsSync(vueConfigJsPath))
-        // {
-        //     var contents = fs.readFileSync(vueConfigJsPath).toString('utf8');
-        //     if(plugins)
-        //     {
-        //         plugins.forEach(function(plugin){
-        //             var thisImport = `import ${plugin.name} from '${plugin.package}';`;
-        //             var thisRequire = `const ${plugin.name} = require('${plugin.package}');`;
-        //             contents = contents.replace(thisImport, thisRequire);
-        //             //data.replace(reThisImport, thisRequire)
-        //         });
-        //     }
-        //     fs.writeFileSync(vueConfigJsPath, contents);
-        // }
-
-            fs.readFile(vueConfigJsPath, 'utf8', function (err,contents)
+        fs.readFile(vueConfigJsPath, 'utf8', function (err,contents)
+        {
+            if (err) return console.log(err);
+            if(plugins)
             {
-                if (err) return console.log(err);
-                if(plugins)
-                {
-                    plugins.forEach(function(plugin){
-                        var thisImport = `import ${plugin.name} from '${plugin.package}';`;
-                        var thisRequire = `const ${plugin.name} = require('${plugin.package}');`;
-                        contents = contents.replace(thisImport, thisRequire);
-                    //data.replace(reThisImport, thisRequire)
-                });
-                }
-                fs.writeFile(vueConfigJsPath, contents, 'utf8', function (err) {
-                    if (err) return console.log(err) 
-                });
+                plugins.forEach(function(plugin){
+                    var thisImport = `import ${plugin.name} from '${plugin.package}';`;
+                    var thisRequire = `const ${plugin.name} = require('${plugin.package}');`;
+                    contents = contents.replace(thisImport, thisRequire);
+                //data.replace(reThisImport, thisRequire)
             });
+            }
+            fs.writeFile(vueConfigJsPath, contents, 'utf8', function (err) {
+                if (err) return console.log(err) 
+            });
+        });
     }
-
-    api.render('./template', { ...options, START_YEAR: new Date().getFullYear(), BASE_URL: '<%= BASE_URL %>', htmlWebpackPlugin:'<%= htmlWebpackPlugin.options.title %>' });
-    api.extendPackage({
-        dependencies: {
-            'everflow': '^4.0.0-alpha.4'
-        },
-        devDependencies: {
-            "everflow-webpack-plugin": "^0.1.0-alpha.1",
-            "@everflow-cli/tools": "^0.1.2",
-            "terser-webpack-plugin": "^3.0.0",
-            "@types/crypto-js": "^3.1.45"
-        }
-    });
+    api.render('./template', { ...options, AES_KEY: generateAESKey(), START_YEAR: new Date().getFullYear(), BASE_URL: '<%= BASE_URL %>', htmlWebpackPlugin:'<%= htmlWebpackPlugin.options.title %>' });
 
     prepareWebpackPlugins([{
         name: 'EverflowWebpackPlugin',

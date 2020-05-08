@@ -1,6 +1,7 @@
 module.exports = [
 {
   name: 'ROUTING_MODE',
+  message: 'Vue Router routing mode?',
   description: 'Vue Router routing mode. Hash(#/home) or History(/home)? ',
   type: 'list',
   default: 'hash',
@@ -21,6 +22,13 @@ module.exports = [
   message: 'What is the root API URL for your server?',
   description: 'This will be added to evconfig.json.',
   default: 'https://api.localhost',
+},
+{
+  type: 'input',
+  name: 'I18N',
+  message: 'Default language for app(i18n locale)?',
+  description: 'This will be added to evconfig.json.',
+  default: 'en',
 },
 {
   type: 'input',
