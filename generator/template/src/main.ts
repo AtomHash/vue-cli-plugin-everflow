@@ -1,4 +1,4 @@
-import { App, NavigationGuards } from 'everflow'
+import { App, navigationGuards } from 'everflow'
 import routes from './router/routes';
 import everflowConfig from './evconfig.json';
 import store from './store';
@@ -20,5 +20,5 @@ import store from './store';
         * [injects]: Array<~root option~> - To use custom vue plugins with new Vue ({store, [injects]})
 *****************************************************************************************************************************/
 const app = new App(everflowConfig, routes);
-app.$router.beforeEach(NavigationGuards.documentTitleNavGaurd);
+app.$router.beforeEach(navigationGuards.documentTitleNavGaurd);
 app.run(store);

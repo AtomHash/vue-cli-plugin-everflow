@@ -2,6 +2,68 @@ const fs = require('fs-extra');
 
 module.exports = (api, options) => {
 
+        // Dynamic Imports
+    const vueConfigJsPath = api.resolve('./vue.config.js');
+    const prepareWebpackPlugins = function(plugins)
+    {
+        if (!fs.existsSync(vueConfigJsPath))
+        {
+            fs.writeFileSync(vueConfigJsPath, '', { flag: 'wx' });
+        }
+        if (fs.existsSync(vueConfigJsPath))
+        {
+            var contents = fs.readFileSync(vueConfigJsPath).toString('utf8');
+            if(plugins)
+            {
+                plugins.forEach(function(plugin)
+                {
+                    var thisImport = `import ${plugin.name} from '${plugin.package}';`;
+                    var thisRequire = `const ${plugin.name} = require('${plugin.package}');`;
+                    contents = contents.replace(thisImport, '');
+                    contents = contents.replace(thisRequire, '');
+                    // get past eslint - no var require...
+                    api.injectImports('vue.config.js', thisImport);
+                });
+            }
+            fs.writeFileSync(vueConfigJsPath, contents);
+        }
+    }
+
+    const finalizeWebpackPlugins = function(plugins)
+    {
+        // if (fs.existsSync(vueConfigJsPath))
+        // {
+        //     var contents = fs.readFileSync(vueConfigJsPath).toString('utf8');
+        //     if(plugins)
+        //     {
+        //         plugins.forEach(function(plugin){
+        //             var thisImport = `import ${plugin.name} from '${plugin.package}';`;
+        //             var thisRequire = `const ${plugin.name} = require('${plugin.package}');`;
+        //             contents = contents.replace(thisImport, thisRequire);
+        //             //data.replace(reThisImport, thisRequire)
+        //         });
+        //     }
+        //     fs.writeFileSync(vueConfigJsPath, contents);
+        // }
+
+            fs.readFile(vueConfigJsPath, 'utf8', function (err,contents)
+            {
+                if (err) return console.log(err);
+                if(plugins)
+                {
+                    plugins.forEach(function(plugin){
+                        var thisImport = `import ${plugin.name} from '${plugin.package}';`;
+                        var thisRequire = `const ${plugin.name} = require('${plugin.package}');`;
+                        contents = contents.replace(thisImport, thisRequire);
+                    //data.replace(reThisImport, thisRequire)
+                });
+                }
+                fs.writeFile(vueConfigJsPath, contents, 'utf8', function (err) {
+                    if (err) return console.log(err) 
+                });
+            });
+    }
+
     api.render('./template', { ...options, START_YEAR: new Date().getFullYear(), BASE_URL: '<%= BASE_URL %>', htmlWebpackPlugin:'<%= htmlWebpackPlugin.options.title %>' });
     api.extendPackage({
         dependencies: {
@@ -14,23 +76,38 @@ module.exports = (api, options) => {
             "@types/crypto-js": "^3.1.45"
         }
     });
+
+    prepareWebpackPlugins([{
+        name: 'EverflowWebpackPlugin',
+        package: 'everflow-webpack-plugin'
+    },
+    {
+        name: 'webpack',
+        package: 'webpack'
+    }])
+
     api.extendPackage({ vue: {
         publicPath: api.makeJSOnlyValue("process.env.NODE_ENV === 'production' ? './' : './'" ),
         configureWebpack: {
-            plugins: api.makeJSOnlyValue('[new EverflowWebpackPlugin]')
+            plugins: api.makeJSOnlyValue('[new EverflowWebpackPlugin, new webpack.ContextReplacementPlugin(/moment[/\\\\]locale$/, /en|fr/)]'),
+            resolve: {
+                alias: {
+                    'vue$': 'vue/dist/vue.esm.js'
+                  }
+              }
         }}});
 
     // Fix first time compliation run fix error
-    const vueConfig = api.resolve('./vue.config.js');
-    const evRequire = "const EverflowWebpackPlugin = require('everflow-webpack-plugin');";
-    const evImport = "import EverflowWebpackPlugin from 'everflow-webpack-plugin';";
-    const reEvImport = /import EverflowWebpackPlugin from 'everflow-webpack-plugin';/g;
-    if (fs.existsSync(vueConfig))
-    {
-        const contents = fs.readFileSync(vueConfig).toString('utf8');
-        fs.writeFileSync(vueConfig, contents.replace(evRequire, ''));
-    }
-    api.injectImports('vue.config.js', evImport);
+    // const vueConfig = api.resolve('./vue.config.js');
+    // const evRequire = "const EverflowWebpackPlugin = require('everflow-webpack-plugin');";
+    // const evImport = "import EverflowWebpackPlugin from 'everflow-webpack-plugin';";
+    // const reEvImport = /import EverflowWebpackPlugin from 'everflow-webpack-plugin';/g;
+    // if (fs.existsSync(vueConfig))
+    // {
+    //     const contents = fs.readFileSync(vueConfig).toString('utf8');
+    //     fs.writeFileSync(vueConfig, contents.replace(evRequire, ''));
+    // }
+    // api.injectImports('vue.config.js', evImport);
 
     // api.afterInvoke(() => {})
     api.onCreateComplete(() => {
@@ -56,17 +133,6 @@ module.exports = (api, options) => {
 
         // Inject EverflowWebpackPlugin require to vue.config.js
         // Workout around for ESLINT triggering 'use import instead' error
-        if (fs.existsSync(vueConfig))
-        {
-            fs.readFile(vueConfig, 'utf8', function (err,data)
-            {
-                if (err) return console.log(err);
-                const result = data.replace(evImport, evRequire);
-                fs.writeFile(vueConfig, data.replace(reEvImport, evRequire), 'utf8', function (err) {
-                    if (err) return console.log(err) 
-                });
-            });
-        }
 
         // Remove problematic d.ts files from sample project
         const filesToRemove = [
@@ -96,5 +162,18 @@ module.exports = (api, options) => {
                 }
             });
         }
+
+        // Convert imports to requires ASYNC to pass eslint...
+        finalizeWebpackPlugins([{
+            name: 'EverflowWebpackPlugin',
+            package: 'everflow-webpack-plugin'
+        },
+        {
+            name: 'webpack',
+            package: 'webpack'
+        }])
+
+        
     });
+
 }
