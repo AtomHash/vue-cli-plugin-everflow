@@ -1,10 +1,12 @@
 {
     "routerMode": "<%= ROUTING_MODE %>",
-    "language": "<%= I18N %>",
     "mountId": "app",
     "apiURL": "<%= API_URL %>",
-    "general": {
-        "startYear": "<%= START_YEAR %>"
+    "i18n": {
+        "enabled": <%- I18N_ENABLED %>,
+        "defaultLocale": "<%= DEFAULT_LOCALE %>",
+        "fallbackLocale": "<%= FALLBACK_LOCALE %>",
+        "modules": true
     },
     "security": {
         "key": "<%= AES_KEY %>"

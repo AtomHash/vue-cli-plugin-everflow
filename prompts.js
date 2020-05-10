@@ -25,9 +25,16 @@ module.exports = [
 },
 {
   type: 'input',
-  name: 'I18N',
-  message: 'Default language for app(i18n locale)?',
-  description: 'This will be added to evconfig.json.',
+  name: 'DEFAULT_LOCALE',
+  message: 'Default i18n locale for app(user=browser locale detected)?',
+  description: '(user=browser locale detected) or i18n supported locales',
+  default: 'user',
+},
+{
+  type: 'input',
+  name: 'FALLBACK_LOCALE',
+  message: 'Fallback locale, if default fails?',
+  description: 'Locale you support no matter what. Its the first locale added to app.',
   default: 'en',
 },
 {
@@ -43,6 +50,12 @@ module.exports = [
   message: 'Time util class serialize format?',
   description: 'This will be added to evconfig.json.',
   default: 'HH:mm:ss',
+},
+{
+    name: 'I18N_ENABLED',
+    type: 'confirm',
+    message: 'Enable i18n loading in your project?',
+    default: true
 },
 {
     name: 'IS_DESTROYABLE',

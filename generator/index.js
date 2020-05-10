@@ -5,10 +5,10 @@ module.exports = (api, options) => {
     // Define package.json dependencies for this version
     api.extendPackage({
         dependencies: {
-            'everflow': '^4.0.0-alpha.5'
+            'everflow': '^4.0.0-alpha.6'
         },
         devDependencies: {
-            "everflow-webpack-plugin": "^0.1.0-alpha.1",
+            "everflow-webpack-plugin": "^0.1.0-alpha.3",
             "@everflow-cli/tools": "^0.1.2",
             "terser-webpack-plugin": "^3.0.0",
             "@types/crypto-js": "^3.1.45"
