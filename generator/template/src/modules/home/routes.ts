@@ -1,7 +1,6 @@
 import { RouteConfig } from 'vue-router'
 import ConfirmLeaveNavGuard from './nav-guards/confirm-leave.navguard'
 import Home from './pages/home.vue'
-import About from './pages/about.vue'
 
 const routes: Array<RouteConfig> = [
     {
@@ -15,7 +14,7 @@ const routes: Array<RouteConfig> = [
     {
         path: '/about',
         name: 'home-about',
-        component: About,
+        component: () => import(/* webpackChunkName: "about" */ './pages/about.vue'),
         beforeEnter: ConfirmLeaveNavGuard,
         meta: {
             title: 'About'

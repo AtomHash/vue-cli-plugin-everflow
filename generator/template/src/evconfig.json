@@ -1,10 +1,15 @@
 {
-    "routerMode": "hash",
-    "language": "en",
+    "routerMode": "<%= ROUTING_MODE %>",
     "mountId": "app",
-    "apiURL": "https://api.localhost",
-    "general": {
-        "startYear": "2020"
+    "apiURL": "<%= API_URL %>",
+    "i18n": {
+        "enabled": <%- I18N_ENABLED %>,
+        "defaultLocale": "<%= DEFAULT_LOCALE %>",
+        "fallbackLocale": "<%= FALLBACK_LOCALE %>",
+        "modules": true
+    },
+    "security": {
+        "key": "<%= AES_KEY %>"
     },
     "storage": {
         "name": "everflow",
@@ -14,10 +19,10 @@
     },
     "datetime": {
         "date": {
-            "format": "YYYY-MM-DD"
+            "format": "<%= DATE_FORMAT %>"
         },
         "time": {
-            "format": "HH:mm:ss"
+            "format": "<%= TIME_FORMAT %>"
         }
     }
 }
