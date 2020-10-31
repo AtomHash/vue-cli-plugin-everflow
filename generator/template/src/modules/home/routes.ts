@@ -1,21 +1,13 @@
-import { RouteConfig } from 'vue-router'
-import ConfirmLeaveNavGuard from './nav-guards/confirm-leave.navguard'
-import Home from './pages/home.vue'
+import { RouteConfig } from 'vue-router';
+import ConfirmEnterNavGuard from './navigation/confirm-enter.navguard';
 
 const routes: Array<RouteConfig> = [
-    {
-        path: '/',
-        name: 'home-home',
-        component: Home,
-        meta: {
-            title: 'Home'
-        }
-    },
+    // home route is located in ./src/router/routes.ts
     {
         path: '/about',
         name: 'home-about',
-        component: () => import(/* webpackChunkName: "about" */ './pages/about.vue'),
-        beforeEnter: ConfirmLeaveNavGuard,
+        component: () => import(/* webpackChunkName: "about" */ './pages/about/index.vue'),
+        beforeEnter: ConfirmEnterNavGuard,
         meta: {
             title: 'About'
         }

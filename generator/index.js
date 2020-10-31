@@ -2,20 +2,20 @@ const fs = require('fs-extra');
 
 module.exports = (api, options) => {
 
-    // Define package.json dependencies for this version
+    // define package.json dependencies for this version
     api.extendPackage({
         dependencies: {
-            'everflow': '^4.0.0'
+            'everflow': '^4.0.0-beta.1'
         },
         devDependencies: {
-            "everflow-webpack-plugin": "^0.1.0",
-            "@everflow-cli/tools": "^0.1.2",
+            "everflow-webpack-plugin": "^1.0.0-beta.1",
+            "@everflow-cli/tools": "^1.0.0-beta.1",
             "terser-webpack-plugin": "^3.0.0",
             "@types/crypto-js": "^3.1.45"
         }
     });
 
-    // Modify options if needed
+    // modify options if needed
     options.API_URL = options.API_URL.replace(/\/$/, '');
 
     // function to generate a 64bit key for AES256BIT encrypt function
@@ -30,7 +30,7 @@ module.exports = (api, options) => {
         return key;
     }
 
-    // Dynamic Imports
+    // dynamic imports
     const vueConfigJsPath = api.resolve('./vue.config.js');
     const prepareWebpackPlugins = function(plugins)
     {
@@ -98,22 +98,10 @@ module.exports = (api, options) => {
               }
         }}});
 
-    // Fix first time compliation run fix error
-    // const vueConfig = api.resolve('./vue.config.js');
-    // const evRequire = "const EverflowWebpackPlugin = require('everflow-webpack-plugin');";
-    // const evImport = "import EverflowWebpackPlugin from 'everflow-webpack-plugin';";
-    // const reEvImport = /import EverflowWebpackPlugin from 'everflow-webpack-plugin';/g;
-    // if (fs.existsSync(vueConfig))
-    // {
-    //     const contents = fs.readFileSync(vueConfig).toString('utf8');
-    //     fs.writeFileSync(vueConfig, contents.replace(evRequire, ''));
-    // }
-    // api.injectImports('vue.config.js', evImport);
-
     // api.afterInvoke(() => {})
     api.onCreateComplete(() => {
 
-        //Edit TSCONFIG - Fix JSON imports
+        // edit TypeScript - TSCONFIG - fix JSON imports
         let tsConfig = '';
         let tsConfigPath = api.resolve('./tsconfig.json');
         if (fs.existsSync(tsConfigPath))
@@ -126,16 +114,15 @@ module.exports = (api, options) => {
             });
         }
 
-        // If PWA plugin is installed, inject service worker to main.ts
+        // if PWA plugin is installed, inject service worker to main.ts
         if (api.hasPlugin('pwa'))
         {
             api.injectImports(api.entryFile, `import './registerServiceWorker';`);
         }
 
-        // Inject EverflowWebpackPlugin require to vue.config.js
-        // Workout around for ESLINT triggering 'use import instead' error
-
-        // Remove problematic d.ts files from sample project
+        // inject EverflowWebpackPlugin require to vue.config.js
+        // workout around for ESLINT triggering 'use import instead' error
+        // remove problematic d.ts files from sample project
         const filesToRemove = [
             './src/shims-tsx.d.ts',
             './src/shims-vue.d.ts'];
@@ -147,7 +134,7 @@ module.exports = (api, options) => {
             }
         });
 
-        // Remove orphanded files if the user agrees
+        // remove orphanded files if the user agrees
         const orphandedFiles = [
             './src/App.vue',
             './src/views/About.vue',
@@ -164,7 +151,7 @@ module.exports = (api, options) => {
             });
         }
 
-        // Convert imports to requires ASYNC to pass eslint...
+        // convert imports to requires ASYNC to pass eslint...
         finalizeWebpackPlugins([{
             name: 'EverflowWebpackPlugin',
             package: 'everflow-webpack-plugin'
