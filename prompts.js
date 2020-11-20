@@ -24,12 +24,6 @@ module.exports = [
   default: 'https://api.localhost',
 },
 {
-    name: 'I18N_ENABLED',
-    type: 'confirm',
-    message: 'Enable i18n loading in your project?',
-    default: true
-},
-{
   type: 'input',
   name: 'DEFAULT_LOCALE',
   message: 'Default i18n locale for app(user=browser locale detected)?',
