@@ -5,7 +5,7 @@ module.exports = (api, options) => {
     // define package.json dependencies for this version
     api.extendPackage({
         dependencies: {
-            'everflow': '^4.0.0-beta.1'
+            'everflow': '^4.0.0-beta.2'
         },
         devDependencies: {
             "everflow-webpack-plugin": "^1.0.0-beta.1",
