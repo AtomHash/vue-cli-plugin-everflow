@@ -4,4 +4,7 @@
         <hello-world></hello-world>
     </div>
 </template>
-<script lang="ts" src="./home.vue.ts"></script>
+<script lang="ts" src="./index.vue.ts"></script>
+<style lang="scss" module>
+@import "./style.module.scss";
+</style>

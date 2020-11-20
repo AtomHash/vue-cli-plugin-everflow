@@ -35,7 +35,7 @@ module.exports = [
   name: 'FALLBACK_LOCALE',
   message: 'Fallback locale, if default fails?',
   description: 'Locale you support no matter what. Its the first locale added to app.',
-  default: 'en',
+  default: 'en-US',
 },
 {
   type: 'input',
@@ -50,12 +50,6 @@ module.exports = [
   message: 'Time util class serialize format?',
   description: 'This will be added to evconfig.json.',
   default: 'HH:mm:ss',
-},
-{
-    name: 'I18N_ENABLED',
-    type: 'confirm',
-    message: 'Enable i18n loading in your project?',
-    default: true
 },
 {
     name: 'IS_DESTROYABLE',

@@ -3,7 +3,7 @@
     "mountId": "app",
     "apiURL": "<%= API_URL %>",
     "i18n": {
-        "enabled": <%- I18N_ENABLED %>,
+        "enabled": true,
         "defaultLocale": "<%= DEFAULT_LOCALE %>",
         "fallbackLocale": "<%= FALLBACK_LOCALE %>",
         "modules": true

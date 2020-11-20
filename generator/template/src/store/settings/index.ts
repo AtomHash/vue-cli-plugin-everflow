@@ -1,6 +1,5 @@
 /* eslint-disable */
-// disable eslint to stop warning <any>
-// sample store file
+// sample store file - removable
 import { GetterTree, MutationTree, ActionTree } from "vuex"
 
 class State {
