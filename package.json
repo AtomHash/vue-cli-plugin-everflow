@@ -1,6 +1,6 @@
 {
   "name": "vue-cli-plugin-everflow",
-  "version": "1.0.0-beta.2",
+  "version": "1.0.0",
   "description": "An everflow plugin for the VueJS cli v3 to help setup everflow projects.",
   "main": "./index.js",
   "author": "AtomHash",
